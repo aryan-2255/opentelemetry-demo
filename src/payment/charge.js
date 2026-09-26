@@ -30,7 +30,8 @@ function validateAmount(units, nanos) {
   if (!Number.isInteger(whole) || whole < 0) {
     throw new Error(`Invalid amount: ${whole}`);
   }
-  if (nanos % 1e9 !== 0) {
+  const n = Number(nanos);
+  if (!Number.isFinite(n) || n < 0 || n >= 1e9) {
     throw new Error(`Invalid amount: fractional value ${nanos} nanos`);
   }
 }
