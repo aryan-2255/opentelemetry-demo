@@ -32,3 +32,24 @@ services:
       resources:
         limits:
           memory: 512M
+  # Running at 70-98% of their default limits here; product-catalog restarted from memory pressure.
+  product-catalog:
+    deploy:
+      resources:
+        limits:
+          memory: 64M
+  accounting:
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+  fraud-detection:
+    deploy:
+      resources:
+        limits:
+          memory: 450M
+  kafka:
+    deploy:
+      resources:
+        limits:
+          memory: 900M
