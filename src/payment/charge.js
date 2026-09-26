@@ -24,6 +24,17 @@ function random(arr) {
   return arr[index];
 }
 
+/** Reject malformed amounts before charging. */
+function validateAmount(units, nanos) {
+  const whole = Number(units?.low ?? units);
+  if (!Number.isInteger(whole) || whole < 0) {
+    throw new Error(`Invalid amount: ${whole}`);
+  }
+  if (nanos % 1e9 !== 0) {
+    throw new Error(`Invalid amount: fractional value ${nanos} nanos`);
+  }
+}
+
 module.exports.charge = async request => {
   const span = tracer.startSpan('charge');
 
@@ -86,6 +97,8 @@ module.exports.charge = async request => {
     if ((currentYear * 12 + currentMonth) > (year * 12 + month)) {
       throw new Error(`The credit card (ending ${lastFourDigits}) expired on ${month}/${year}.`);
     }
+
+    validateAmount(request.amount.units, request.amount.nanos);
 
     // Do not charge synthetic requests.
     if (syntheticRequest) {
