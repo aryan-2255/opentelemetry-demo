@@ -31,3 +31,8 @@
 #       exporters: [otlp_http/prometheus, debug, otlp_grpc/mybackend]           # repeat upstream exporters
 #     logs:
 #       exporters: [opensearch, debug, otlp_grpc/mybackend]                     # repeat upstream exporters
+
+# NightShift: flush span metrics every 10 s (default 60 s) so error rates react within seconds.
+connectors:
+  span_metrics:
+    metrics_flush_interval: 10s

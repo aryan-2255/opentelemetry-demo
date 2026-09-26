@@ -24,3 +24,11 @@
 #         condition: service_started
 #
 # Then add your exporter config to src/otel-collector/otelcol-config-extras.yml.
+
+services:
+  # Grafana restarted repeatedly at the default 175M limit while loading plugins.
+  grafana:
+    deploy:
+      resources:
+        limits:
+          memory: 512M

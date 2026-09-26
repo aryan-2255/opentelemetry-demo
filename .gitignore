@@ -58,3 +58,6 @@ src/frontend/cypress/screenshots
 src/shipping/target/
 
 !src/currency/build
+public-gate/shop-qr.png
+MY-ORDERS.html
+.nightshift/
